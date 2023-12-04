@@ -1,0 +1,12 @@
+matplotlib==3.7.1
+mediapipe==0.10.7
+numpy
+opencv_python==4.8.1.78
+Pillow==10.1.0
+scikit_learn==1.2.2
+tensorflow==2.13.0rc0
+paho-mqtt==1.6.1
+
+# Uncomment below For Apple Silicon Mac
+# tensorflow_macos
+# tensorflow-metal
