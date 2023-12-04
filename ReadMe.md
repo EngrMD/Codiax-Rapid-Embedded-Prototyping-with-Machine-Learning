@@ -29,7 +29,7 @@ Follow [Part 1 - Install dependencies](#part-1---install-dependencies) and [Part
 
 #### Install Homebrew
 
-Run the code below on your terminal and follow the steps shown during installation: 
+Run the code below on your terminal and follow the steps shown during installation:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -49,7 +49,7 @@ mosquitto
 #### Note: For Apple Silicon users (M1 and above)
 - Open `requirements.txt` and uncomment lines relating to Apple silicon users
 
-#### For users with Python version <= 3.11 
+#### For users with Python version <= 3.11
 ```
 source 1b_setup.sh
 ```
@@ -73,7 +73,7 @@ Running the code below should print `Python 3.10.0`
 ```bash
 python --version
 ```
-If successful run the next step of the set up: 
+If successful run the next step of the set up:
 ```
 source 1b_setup.sh
 ```
@@ -92,7 +92,7 @@ On a separate terminal, run:
 mosquitto
 ```
 
-#### For users with Python version <= 3.11 
+#### For users with Python version <= 3.11
 ```
 source 1b_setup.sh
 ```
@@ -124,18 +124,18 @@ source 1b_setup.sh
 
 ### Windows
 <a name="windows"></a>
+- Install Python 3.11 or a few versions below
+- Install `mosquitto` from https://mosquitto.org/download/
+- Follow the instructions for adding mosquitto to your PC environment variables at [Cedalo Blog](https://cedalo.com/blog/how-to-install-mosquitto-mqtt-broker-on-windows/#Making_Mosquitto_command_globally_available_Adding_Mosquitto_to_system_path)
 
-#### Install Windows Subsystem for Linux (WSL) using the Powershell
-
-```Powershell
-wsl --install
+Run the code below:
+```bash
+pip install -r requirements.txt
 ```
-
-When successfully installed, follow the Linux installation above
 
 ## Part 2 - Test Example
 <a name="part-2---test-example"></a>
-Activate the virtual environment
+If a virtual environment was installed by running `source 1b_setup.sh` previously, activate the virtual environment. Otherwise, test the python script in the next step.
 ```bash
 source workshop/bin/activate
 ```
@@ -201,7 +201,7 @@ Modify the code to change the broker connection to Raspberry Pi's IP address (as
 #### Bonus task:
 - Only control the fan when there is a hand gesture, so taking your hand away from the camera's frame shouldn't change the fan's speed. Good luck! -->
 
-### Sending MQTT messages 
+### Sending MQTT messages
 <a name="sending-mqtt-messages"></a>
 Topic is ```Dyson-NST-at-codiax``` and message is ```{"speed"}:val``` where ```val``` is a value from 1 to 10
 #### Example message to control fan - publish to RPi Local Broker
