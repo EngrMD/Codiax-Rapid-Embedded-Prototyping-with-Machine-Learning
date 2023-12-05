@@ -1,12 +1,17 @@
 import cv2
 import mediapipe as mp
+import paho.mqtt.publish as publish
+import json
 
 cap = cv2.VideoCapture(0)
 mp_Hands = mp.solutions.hands
 hands = mp_Hands.Hands()
 mpDraw = mp.solutions.drawing_utils
 finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
-thumb_Coord = (4,2)
+thumb_Coord = (4, 2)
+
+broker_ip = "localhost"  # Replace with your local broker IP
+previous_prediction = None
 
 while True:
     success, image = cap.read()
@@ -31,6 +36,13 @@ while True:
             if handList[thumb_Coord[0]][0] > handList[thumb_Coord[1]][0]:
                 upCount += 1
             cv2.putText(image, str(upCount), (150, 150), cv2.FONT_HERSHEY_PLAIN, 12, (0, 255, 0), 12)
+
+            # Check conditions for MQTT message publishing
+            if previous_prediction is None or upCount != previous_prediction:
+                message = {"speed": 2 * upCount}
+                publish.single("Dyson-NST-at-codiax", json.dumps(message), hostname=broker_ip)
+                print(f"Published: Topic - Dyson-NST-at-codiax, Message - {message}")
+                previous_prediction = upCount
 
         cv2.imshow("Counting number of fingers", image)
         cv2.waitKey(1)
