@@ -1,3 +1,14 @@
+"""
+File: 3_train_hand_recognition.py
+Author: Marco Domingo
+Description: Example on how to train a model to recognize hand gestures using the dataset from the previous step.
+
+MIT License
+Copyright (c) 2023 Marco Domingo
+See the [MIT License](https://opensource.org/licenses/MIT) for details.
+"""
+
+
 import os
 import cv2
 import numpy as np

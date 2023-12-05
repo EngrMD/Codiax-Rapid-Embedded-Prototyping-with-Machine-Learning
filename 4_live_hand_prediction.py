@@ -1,3 +1,16 @@
+"""
+File: 4_live_hand_prediction.py
+Author: Marco Domingo
+Description: 
+Example on how to use the trained model to predict the number of fingers raised in a live video feed.
+The number of fingers raised is then published to an MQTT broker.
+
+MIT License
+Copyright (c) 2023 Marco Domingo
+See the [MIT License](https://opensource.org/licenses/MIT) for details.
+"""
+
+
 import cv2
 import numpy as np
 import paho.mqtt.publish as publish
