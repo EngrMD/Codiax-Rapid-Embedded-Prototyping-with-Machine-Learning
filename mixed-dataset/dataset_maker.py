@@ -1,3 +1,15 @@
+"""
+File: dataset_maker.py
+Author: Marco Domingo
+Description: 
+Example on how to create a dataset for training a model to recognize hand gestures.
+The dataset is created by capturing images from the camera and saving them in the respective folders.
+
+MIT License
+Copyright (c) 2023 Marco Domingo
+See the [MIT License](https://opensource.org/licenses/MIT) for details.
+"""
+
 import cv2
 import datetime
 import os

@@ -5,7 +5,7 @@ Description: Example on how to test your model on a set of images and calculate 
 For the workshop's purposes this is used to test python installation and dependencies particularly ML libraries.
 
 MIT License
-Copyright (c) Year Author's Name
+Copyright (c) 2023 Marco Domingo
 See the [MIT License](https://opensource.org/licenses/MIT) for details.
 """
 
