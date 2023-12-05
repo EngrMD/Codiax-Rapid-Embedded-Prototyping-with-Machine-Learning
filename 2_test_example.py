@@ -1,3 +1,14 @@
+"""
+File: 2_test_example.py
+Author: Marco Domingo
+Description: Example on how to test your model on a set of images and calculate the accuracy.
+For the workshop's purposes this is used to test python installation and dependencies particularly ML libraries.
+
+MIT License
+Copyright (c) Year Author's Name
+See the [MIT License](https://opensource.org/licenses/MIT) for details.
+"""
+
 import os
 import random
 import numpy as np

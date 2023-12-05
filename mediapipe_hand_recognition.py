@@ -1,3 +1,14 @@
+"""
+File: mediapipe_hand_recognition.py
+Author: Marco Domingo
+Description: Example on how to use the mediapipe library to detect hand landmarks and count the number of 
+fingers raised. The number of fingers raised is then published to an MQTT broker.
+
+MIT License
+Copyright (c) 2023 Marco Domingo
+See the [MIT License](https://opensource.org/licenses/MIT) for details.
+"""
+
 import cv2
 import mediapipe as mp
 import paho.mqtt.publish as publish
@@ -10,7 +21,7 @@ mpDraw = mp.solutions.drawing_utils
 finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
 thumb_Coord = (4, 2)
 
-broker_ip = "localhost"  # Replace with your local broker IP
+broker_ip = "localhost" 
 previous_prediction = None
 
 while True:
@@ -37,7 +48,6 @@ while True:
                 upCount += 1
             cv2.putText(image, str(upCount), (150, 150), cv2.FONT_HERSHEY_PLAIN, 12, (0, 255, 0), 12)
 
-            # Check conditions for MQTT message publishing
             if previous_prediction is None or upCount != previous_prediction:
                 message = {"speed": 2 * upCount}
                 publish.single("Dyson-NST-at-codiax", json.dumps(message), hostname=broker_ip)
