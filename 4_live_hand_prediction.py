@@ -8,7 +8,7 @@ from tensorflow.keras.models import load_model
 broker_ip = "localhost"
 
 # Load your trained model
-model = load_model("./models/mixed_deep_model_checkpoint.h5")  # Replace with the path to your saved model
+model = load_model("./models/simple_model.h5")  # Replace with the path to your saved model
 
 # Open the camera (0 corresponds to the default camera, you can change it if needed)
 cap = cv2.VideoCapture(0)

@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 from sklearn.metrics import accuracy_score
 
 # Load your trained model
-model = load_model('models/fingers_model_checkpoint.h5')
+model = load_model('models/simple_model.h5')
 
 # Path to the test dataset
 test_folder = 'fingers/test'
