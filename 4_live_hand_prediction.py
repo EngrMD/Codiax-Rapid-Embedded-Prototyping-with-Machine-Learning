@@ -78,6 +78,7 @@ while True:
     confidence_levels = np.max(prediction)
     prediction_text = f"Prediction: Class {predicted_class}"
     cv2.putText(gray_roi, prediction_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(gray_roi, f"Confidence: {confidence_levels:.3f}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA)
     cv2.imshow('Grayscale ROI with Prediction', gray_roi)
 
     # Publish on MQTT if the prediction changes and is over the confidence threshold
