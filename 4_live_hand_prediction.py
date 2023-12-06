@@ -46,6 +46,8 @@ confidence_threshold = 0.45
 while True:
     ret, frame = cap.read()
 
+    frame = cv2.flip(frame, 1)
+
     # Draw a bounding box on the frame
     top_left = (int((frame_width - roi_size) / 2), int((frame_height - roi_size) / 2))
     bottom_right = (top_left[0] + roi_size, top_left[1] + roi_size)
@@ -73,17 +75,17 @@ while True:
 
     # Get the predicted class and confidence levels
     predicted_class = np.argmax(prediction)
-    confidence_levels = prediction[0]
+    confidence_levels = np.max(prediction)
     prediction_text = f"Prediction: Class {predicted_class}"
     cv2.putText(gray_roi, prediction_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA)
     cv2.imshow('Grayscale ROI with Prediction', gray_roi)
 
     # Publish on MQTT if the prediction changes and is over the confidence threshold
     if previous_prediction is None or predicted_class != previous_prediction:
-        if confidence_levels[predicted_class] > confidence_threshold:
+        if confidence_levels > confidence_threshold:
             message = {"speed": 2*int(predicted_class)}
             publish.single("Dyson-NST-at-codiax", json.dumps(message), hostname=broker_ip)
-            print(f"Published: Topic - Dyson-NST-at-codiax, Message - {message}, confidence : {confidence_levels[predicted_class]:.3f}")
+            print(f"Published: Topic - Dyson-NST-at-codiax, Message - {message}, confidence : {confidence_levels:.3f}")
             previous_prediction = predicted_class
 
     # Break the loop if 'q' is pressed
