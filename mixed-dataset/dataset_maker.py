@@ -29,7 +29,7 @@ cap.set(3, frame_width)
 cap.set(4, frame_height)
 
 # Set the ROI size
-roi_size = 256
+ROI_SIZE = 256
 
 # Initialize a dictionary to store the image counts for each folder
 image_counts = {str(i): 0 for i in range(6)}
@@ -42,15 +42,15 @@ while True:
     frame = cv2.flip(frame, 1)
 
     # Draw a bounding box on the frame
-    top_left = (int((frame_width - roi_size) / 2), int((frame_height - roi_size) / 2))
-    bottom_right = (top_left[0] + roi_size, top_left[1] + roi_size)
+    top_left = (int((frame_width - ROI_SIZE) / 2), int((frame_height - ROI_SIZE) / 2))
+    bottom_right = (top_left[0] + ROI_SIZE, top_left[1] + ROI_SIZE)
     cv2.rectangle(frame, top_left, bottom_right, (0, 255, 0), 2)
 
     # Get the region of interest (ROI)
     roi = frame[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
 
     # Resize the ROI to 256x256
-    roi = cv2.resize(roi, (roi_size, roi_size))
+    roi = cv2.resize(roi, (ROI_SIZE, ROI_SIZE))
 
     # Convert the ROI to grayscale
     gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
