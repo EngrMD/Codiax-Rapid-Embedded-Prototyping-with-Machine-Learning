@@ -1,28 +1,16 @@
-"""
-File: 4_live_hand_prediction.py
-Author: Marco Domingo
-Description: 
-Example on how to use the trained model to predict the number of fingers raised in a live video feed.
-The number of fingers raised is then published to an MQTT broker.
-
-MIT License
-Copyright (c) 2023 Marco Domingo
-See the [MIT License](https://opensource.org/licenses/MIT) for details.
-"""
-
-
 import cv2
 import numpy as np
-import paho.mqtt.publish as publish
+import paho.mqtt.client as mqtt
 import json
 from tensorflow.keras.models import load_model
 
 # Replace "broker_ip" with the actual IP address of your MQTT broker, in the final case the RPi
-BROKER_IP = "localhost"
+# BROKER_IP = "localhost"
+BROKER_IP = "192.168.68.121"
 MQTT_TOPIC = "Dyson-NST-at-codiax"
 
 # Load your trained model
-model = load_model("./models/simple_model.h5")  # Replace with the path to your saved model
+model = load_model("./models/workshop_model_v2_5CNN.h5")  # Replace with the path to your saved model
 
 # Open the camera (0 corresponds to the default camera, you can change it if needed)
 cap = cv2.VideoCapture(0)
@@ -44,6 +32,15 @@ previous_prediction = None
 
 # Set the confidence threshold
 confidence_threshold = 0.45
+
+# MQTT setup
+client = mqtt.Client()
+client.connect(BROKER_IP, 1883, 60)  # 60 is the keep-alive interval in seconds
+
+def on_publish(client, userdata, mid):
+    print(f"Published MQTT message: {MQTT_TOPIC} {message} ----- confidence : {confidence_levels:.3f}")
+
+client.on_publish = on_publish
 
 while True:
     ret, frame = cap.read()
@@ -87,8 +84,11 @@ while True:
     if previous_prediction is None or predicted_class != previous_prediction:
         if confidence_levels > confidence_threshold:
             message = {"speed": 2*int(predicted_class)}
-            publish.single(MQTT_TOPIC, json.dumps(message), hostname=BROKER_IP)
-            print(f"Published MQTT message: {MQTT_TOPIC} {message} ----- confidence : {confidence_levels:.3f}")
+            try:
+                client.publish(MQTT_TOPIC, json.dumps(message))
+            except Exception as e:
+                print(f"Error publishing MQTT message: {e}")
+
             previous_prediction = predicted_class
 
     # Break the loop if 'q' is pressed

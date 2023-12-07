@@ -11,7 +11,7 @@ See the [MIT License](https://opensource.org/licenses/MIT) for details.
 
 import cv2
 import mediapipe as mp
-import paho.mqtt.publish as publish
+import paho.mqtt.client as mqtt
 import json
 
 cap = cv2.VideoCapture(0)
@@ -21,7 +21,19 @@ mpDraw = mp.solutions.drawing_utils
 finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
 thumb_Coord = (4, 2)
 
-broker_ip = "localhost" 
+# BROKER_IP = "localhost"
+# BROKER_IP = "192.168.68.121"
+MQTT_TOPIC = "Dyson-NST-at-codiax"
+
+# MQTT setup
+client = mqtt.Client()
+client.connect(BROKER_IP, 1883, 60)  # 60 is the keep-alive interval in seconds
+
+def on_publish(client, userdata, mid):
+    print(f"Published MQTT message: {MQTT_TOPIC} {message} ----- confidence : {confidence_levels:.3f}")
+
+client.on_publish = on_publish
+
 previous_prediction = None
 
 while True:
@@ -50,8 +62,12 @@ while True:
 
             if previous_prediction is None or upCount != previous_prediction:
                 message = {"speed": 2 * upCount}
-                publish.single("Dyson-NST-at-codiax", json.dumps(message), hostname=broker_ip)
-                print(f"Published: Topic - Dyson-NST-at-codiax, Message - {message}")
+                try:
+                    client.publish(MQTT_TOPIC, json.dumps(message))
+                    print(f"Published: Topic - Dyson-NST-at-codiax, Message - {message}")
+                except Exception as e:
+                    print(f"Error publishing MQTT message: {e}")
+                
                 previous_prediction = upCount
 
         cv2.imshow("Counting number of fingers", image)
