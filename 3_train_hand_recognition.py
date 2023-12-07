@@ -92,10 +92,10 @@ model.add(Dense(6, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Uncomment the following lines for retraining
-# model.load_weights("./models/replace_with_model_filename.h5")
+# model.load_weights("./models/path_to_your_model.h5")
 
 # Define a ModelCheckpoint callback to save the model with the best validation loss
-checkpoint_path = "./models/hand_gesture_model_epoch_{epoch:02d}_loss_{val_loss:.2f}.h5"
+checkpoint_path = "./models/codiax_model_{epoch:02d}_loss_{val_loss:.2f}.h5"
 checkpoint = ModelCheckpoint(checkpoint_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)
 
 # Print model summary
@@ -106,4 +106,4 @@ history = model.fit(X_train, y_train, batch_size=BATCH_SIZE, validation_data=(X_
                     epochs=EPOCHS, verbose=1, callbacks=[checkpoint])
 
 # Save the final trained model
-model.save("./models/hand_gesture_model_{val_loss:.2f}.h5")
+model.save("./models/codiax_model.h5")
