@@ -21,8 +21,7 @@ mpDraw = mp.solutions.drawing_utils
 finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
 thumb_Coord = (4, 2)
 
-# BROKER_IP = "localhost"
-# BROKER_IP = "192.168.68.121"
+BROKER_IP = "localhost"
 MQTT_TOPIC = "Dyson-NST-at-codiax"
 
 # MQTT setup

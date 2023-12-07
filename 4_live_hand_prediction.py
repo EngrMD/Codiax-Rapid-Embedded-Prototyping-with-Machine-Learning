@@ -5,12 +5,11 @@ import json
 from tensorflow.keras.models import load_model
 
 # Replace "broker_ip" with the actual IP address of your MQTT broker, in the final case the RPi
-# BROKER_IP = "localhost"
-BROKER_IP = "192.168.68.121"
+BROKER_IP = "localhost"
 MQTT_TOPIC = "Dyson-NST-at-codiax"
 
 # Load your trained model
-model = load_model("./models/workshop_model_v2_5CNN.h5")  # Replace with the path to your saved model
+model = load_model("./models/simple_model.h5")  # Replace with the path to your saved model
 
 # Open the camera (0 corresponds to the default camera, you can change it if needed)
 cap = cv2.VideoCapture(0)

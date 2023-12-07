@@ -80,11 +80,6 @@ model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-model.add(Conv2D(256, (3, 3), activation='relu'))
-model.add(BatchNormalization())
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
-
 model.add(Flatten())
 
 model.add(Dense(256, activation='relu'))
@@ -97,10 +92,10 @@ model.add(Dense(6, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Uncomment the following lines for retraining
-# model.load_weights("./models/codiax_model_epoch_100_loss_0.02.h5")
+# model.load_weights("./models/path_to_your_model.h5")
 
 # Define a ModelCheckpoint callback to save the model with the best validation loss
-checkpoint_path = "./models/5_CNN_codiax_v3_{epoch:02d}_loss_{val_loss:.2f}.h5"
+checkpoint_path = "./models/codiax_model_{epoch:02d}_loss_{val_loss:.2f}.h5"
 checkpoint = ModelCheckpoint(checkpoint_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)
 
 # Print model summary
@@ -111,4 +106,4 @@ history = model.fit(X_train, y_train, batch_size=BATCH_SIZE, validation_data=(X_
                     epochs=EPOCHS, verbose=1, callbacks=[checkpoint])
 
 # Save the final trained model
-model.save("./models/5_CNN_codiax_v3.h5")
+model.save("./models/codiax_model.h5")
