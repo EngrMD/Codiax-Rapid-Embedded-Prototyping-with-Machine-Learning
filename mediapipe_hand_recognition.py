@@ -29,7 +29,7 @@ client = mqtt.Client()
 client.connect(BROKER_IP, 1883, 60)  # 60 is the keep-alive interval in seconds
 
 def on_publish(client, userdata, mid):
-    print(f"Published MQTT message: {MQTT_TOPIC} {message} ----- confidence : {confidence_levels:.3f}")
+    print(f"Published MQTT message: {MQTT_TOPIC} {message}")
 
 client.on_publish = on_publish
 
