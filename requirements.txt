@@ -2,8 +2,8 @@ matplotlib==3.7.1
 mediapipe==0.10.7
 numpy
 opencv_python==4.8.1.78
-Pillow==10.1.0
-scikit_learn==1.2.2
+Pillow>=10.3.0
+scikit-learn>=1.5.0
 tensorflow==2.13.0rc0
 paho-mqtt==1.6.1
 
